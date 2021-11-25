@@ -1,0 +1,29 @@
+<section class="container mx-auto flex flex-col items-center my-32 px-16 md:my-56 lg:my-80" aria-labelledby="featured-title">
+    {% if home %}
+        <h1 class="text-md leading-md mt-0 mb-24 fvs-md text-center tracking-3 uppercase text-grey-neutral md:mb-32" id="featured-title">Our world map pinboard collection</h1>
+    {% else %}
+        <h2 class="s-md leading-md mt-0 mb-24 fvs-md text-center tracking-3 uppercase text-grey-neutral md:mb-32" id="featured-title">Our world map pinboard collection</h2>
+    {% endif %}
+
+    <div class="grid grid-cols-2 gap-24 mb-24 md:mb-32 lg:grid-cols-4 lg:gap-32 lg:mb-40">
+    {% for product in featuredProducts %}
+        <div class="relative group">
+            {% picture
+                product.image,
+                '300, 375',
+                '375px',
+                null,
+                product.imageAlt,
+                'ratio-1-1 relative block bg-grey-fade overflow-hidden mb-8 md:mb-16',
+                'absolute w-full h-full top-0 left-0 object-cover transition-transform duration-500 ease-in-out hov:group-hover:scale-110'
+            %}
+
+            <a class="inline bg-gradient-to-l from-grey to-grey bg-link bg-no-repeat text-xs leading-xs fvs-md text-grey tracking-1 transition-background-size duration-300 ease-linear before:absolute before:inset-0 focus:bg-link-full hov:hover:bg-link-full" href="{{product.slug}}">{{product.title}}</a>
+
+            <span class="text-xs leading-xs fvs-md text-grey block mt-8">{{product.minPrice}} - {{product.maxPrice}}</span>
+        </div>
+    {% endfor %}
+    </div>
+
+    <a href="/products/" class="py-16 px-24 text-xs fvs-md leading-xs tracking-1 uppercase bg-secondary text-foreground rounded-5 self-center outline-transparent focus:outline-primary hov:hover:bg-hover-secondary md:px-32">View all</a>
+</section>

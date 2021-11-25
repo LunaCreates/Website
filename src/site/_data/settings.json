@@ -1,0 +1,82 @@
+{
+  "url": "https://lunacreates.co.uk",
+  "name": "Luna Creates",
+  "email": "hello@lunacreates.co.uk",
+  "twitterHandle": "@luna_creates",
+  "facebookName": "lunacreatesdesign",
+  "instagramName": "lunacreatesdesign",
+  "instagramUrl": "https://www.instagram.com/lunacreatesdesign/",
+  "githubRepo": "https://github.com/Pushedskydiver/lunacreates.co.uk",
+  "maxPostsPerPage": 9,
+  "navigation": [
+    {
+      "title": "Shop",
+      "url": "/products/",
+      "collections": [
+        {
+          "title": "Browse all",
+          "url": "/products/"
+        },
+        {
+          "title": "Personalised map pinboards",
+          "url": "/collections/maps/"
+        },
+        {
+          "title": "Wedding travel theme products",
+          "url": "/collections/wedding/"
+        },
+        {
+          "title": "Kids personalised pinboard world map",
+          "url": "/products/personalised-kids-pinboard-world-map/"
+        },
+        {
+          "title": "Gift card",
+          "url": "/products/luna-creates-gift-card/"
+        }
+      ]
+    },
+    {
+      "title": "About us",
+      "url": "/about-us/"
+    },
+    {
+      "title": "Contact us",
+      "url": "/contact-us/"
+    },
+    {
+      "title": "Delivery",
+      "url": "/delivery/"
+    },
+    {
+      "title": "Blog",
+      "url": "/blog/"
+    },
+    {
+      "title": "FAQ",
+      "url": "/faqs/"
+    }
+  ],
+  "social": [
+    {
+      "url": "https://www.facebook.com/lunacreatesdesign",
+      "title": "Facebook",
+      "titleAttr": "Go to Luna Creates Facebook page.",
+      "slug": "facebook",
+      "handle": "lunacreatesdesign"
+    },
+    {
+      "url": "https://twitter.com/luna_creates",
+      "title": "Twitter",
+      "titleAttr": "Go to Luna Creates Twitter profile.",
+      "slug": "twitter",
+      "handle": "@luna_creates"
+    },
+    {
+      "url": "https://www.instagram.com/lunacreatesdesign/",
+      "title": "Instagram",
+      "titleAttr": "Go to Luna Creates Instagram profile.",
+      "slug": "instagram",
+      "handle": "lunacreatesdesign"
+    }
+  ]
+}

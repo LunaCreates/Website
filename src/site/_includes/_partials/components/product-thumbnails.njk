@@ -1,0 +1,29 @@
+<ul class="mt-16 flex flex-nowrap overflow-x-auto scroll-snap-x" data-component="product-thumbnails">
+{% for thumbnail in product.thumbnails %}
+    {% set image = thumbnail.image.split(r/.(jpg|png)/g)[0] %}
+    <li class="relative min-w-4 scroll-snap-start mx-8 md:min-w-6">
+        <a href="{{image}}{{thumbnail.type}}" class="absolute inset-0 border-2 border-solid border-transparent transition-all duration-300 ease-in-out {% if loop.first %}border-primary{% endif %} z-10" data-thumbnail-link>
+            <span class="sr-only">Thumbnail item {{loop.index + 1}}</span>
+        </a>
+        <picture class="ratio-1-1 relative block bg-grey-fade">
+            <source media="(max-width: 37.4375em)" type="image/webp" data-srcset="{{image}}_75x75{{thumbnail.type}}.webp 1x, {{image}}_100x100{{thumbnail.type}}.webp 2x" data-main-image="{{image}}_100x100{{thumbnail.type}}.webp 1x, {{image}}_200x200{{thumbnail.type}}.webp 2x">
+
+            <source media="(max-width: 37.4375em)" data-srcset="{{image}}_75x75{{thumbnail.type}} 1x, {{image}}_100x100{{thumbnail.type}} 2x" data-main-image="{{image}}_100x100{{thumbnail.type}} 1x, {{image}}_200x200{{thumbnail.type}} 2x">
+
+            <source type="image/webp" data-srcset="{{image}}_75x75{{thumbnail.type}}.webp 1x, {{image}}_150x150{{thumbnail.type}}.webp 2x" data-main-image="{{image}}_300x300{{thumbnail.type}}.webp 1x, {{image}}_450x450{{thumbnail.type}}.webp 2x">
+
+            <img class="lazyload absolute w-full h-full top-0 left-0 object-cover" data-srcset="{{image}}_75x75{{thumbnail.type}} 1x, {{image}}_150x150{{thumbnail.type}} 2x" data-main-image="{{image}}_300x300{{thumbnail.type}} 1x, {{image}}_450x450{{thumbnail.type}} 2x" alt="{{thumbnail.imageAlt}}" loading="lazy" width="100" height="100">
+
+            <noscript>
+                <source media="(max-width: 37.4375em)" type="image/webp" srcset="{{image}}_75x75{{thumbnail.type}}.webp 1x, {{image}}_100x100{{thumbnail.type}}.webp 2x">
+
+                <source media="(max-width: 37.4375em)" srcset="{{image}}_75x75{{thumbnail.type}} 1x, {{image}}_100x100{{thumbnail.type}} 2x">
+
+                <source type="image/webp" srcset="{{image}}_75x75{{thumbnail.type}}.webp 1x, {{image}}_150x150{{thumbnail.type}}.webp 2x">
+
+                <img srcset="{{image}}_75x75{{thumbnail.type}} 1x, {{image}}_150x150{{thumbnail.type}} 2x" alt="{{thumbnail.imageAlt}}" loading="lazy" class="absolute w-full h-full top-0 left-0 object-cover" width="100" height="100">
+            </noscript>
+        </picture>
+    </li>
+{% endfor %}
+</ul>

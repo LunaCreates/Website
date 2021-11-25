@@ -1,0 +1,18 @@
+---
+title: 'About us'
+description: 'Find out more about the people behind Luna Creates.'
+heroTitle: 'About us'
+heroImage: 'https://cdn.shopify.com/s/files/1/1931/6299/files/Image_2.png'
+layout: _layouts/page
+sitemap:
+  changefreq: monthly
+  priority: 0.8
+---
+
+{% include "_partials/components/hero.njk" %}
+
+<main class="container mx-auto my-32 px-16 md:my-56 lg:my-80" id="main">
+    <div class="rte max-w-45t mx-auto">
+        {{about.body | safe}}
+    </div>
+</main>

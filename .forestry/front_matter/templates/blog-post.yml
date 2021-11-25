@@ -1,0 +1,71 @@
+---
+label: Blog Post
+hide_body: false
+fields:
+- name: is_draft
+  type: boolean
+  label: Is Draft
+  default: true
+  description: Used to set if post is draft or published
+- name: meta_title
+  type: text
+  config:
+    required: true
+    max: 70
+  label: Meta Title
+  description: Title to be used for SEO purposes
+- name: meta_description
+  type: text
+  config:
+    required: true
+    max: 158
+  label: Meta Description
+  description: The meta description of the blog post. To be used for SEO purposes
+- name: title
+  type: text
+  config:
+    required: true
+  label: Title
+  description: Title of the blog post
+- name: publish_date
+  type: datetime
+  label: Publish Date
+  description: Date the blog post was published, will be shown on the website
+  config:
+    required: false
+    date_format: DD/MM/YYYY
+    time_format: 
+    display_utc: false
+    export_format: YYYY-MM-DDThh:mm:ssZ
+- name: banner_image
+  type: file
+  config:
+    maxSize: 2
+  label: Banner Image
+  description: Must have an aspect ratio of 4:1. Will appear in the banner, behind
+    the title
+  default: https://lunacreates.co.uk/images/blog/banner-placeholder.jpg
+- name: thumbnail
+  type: file
+  config:
+    maxSize: 1
+  label: Thumbnail
+  description: Must have an aspect ratio of 1:1. Image to be shown on each post in
+    the blog landing page
+  default: https://lunacreates.co.uk/images/blog/thumbnail-placeholder.jpg
+- name: tags
+  type: tag_list
+  default: []
+  label: Tags
+  description: A list of tags to link blog posts together
+pages:
+- src/site/blog/10-places-to-visit-when-travelling-with-kids.md
+- src/site/blog/best-honeymoon-destinations-in-august.md
+- src/site/blog/best-honeymoon-destinations-in-october.md
+- src/site/blog/best-honeymoon-destinations-in-september.md
+- src/site/blog/best-november-honeymoon-destinations.md
+- src/site/blog/the-perfect-gift.md
+- src/site/blog/tips-for-starting-your-own-business.md
+- src/site/blog/top-10-most-beautiful-beaches-in-the-world.md
+- src/site/blog/top-10-most-visited-countries-in-the-world.md
+- src/site/blog/top-travel-influencers.md

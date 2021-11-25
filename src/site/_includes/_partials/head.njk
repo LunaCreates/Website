@@ -1,0 +1,226 @@
+
+<head>
+    <!-- META TAGS -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, user-scalable=yes, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="{% if renderData.description or description %}{{ renderData.description or description }}{% endif %}">
+
+    <meta name="google-site-verification" content="eeRSKPI0FnFmxasejzWbWSZZRZ9_LqLfiKXTHejqeII"/>
+
+    <meta name="google-site-verification" content="uni8DaQpXBiVFYl464P1tK1N9ZlmgwbAIfHc7dOI_KM" />
+
+    {% if nofollow %}
+        <meta name="robots" content="noindex, nofollow">
+    {% endif %}
+
+    <!-- PAGE TITLE -->
+    <title>{{ renderData.title or title }} {%- if home %} &mdash; {{settings.name}}{% endif -%}</title>
+
+    <!-- RESOURCE HINTS -->
+    {% if tags and 'product' in tags %}
+        <link rel="preconnect" href="https://cdn.shopify.com">
+    {% endif %}
+    <link rel="preconnect" href="https://polyfill.io">
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="preconnect" href="https://www.google-analytics.com">
+    <link rel="preconnect" href="https://www.facebook.com">
+    <link rel="preconnect" href="https://static.hotjar.com">
+
+    <!-- PRELOAD FILES -->
+    {% include "_partials/preload-styles.njk" %}
+    <link rel="preload" href="/fonts/avenir-next-variable.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <link href="https://www.googletagmanager.com/gtag/js?id=UA-117442723-1" rel="preload" as="script">
+    <link href="https://polyfill.io/v3/polyfill.min.js?features=ResizeObserver%2CIntersectionObserver%2CString.prototype.includes" rel="preload" as="script">
+
+    {# {% if renderData.heroImage or heroImage %}
+        {% set image = renderData.heroImage or heroImage %}
+
+        {% preloadImage
+            image,
+            '300, 600, 800, 1600',
+            '(min-width: 38em) and (max-width: 47.9375em) 800px, 100vw'
+        %}
+    {% endif %} #}
+
+    {# {% if tags and 'product' in tags %}
+        {% set image = product.mainImage.split(r/.(jpg|png)/g)[0] %}
+        {% set imageType = product.mainImage.split(r/.(jpg|png)/g)[1] %}
+
+        <link rel="preload" as="image" type="image/webp" imagesrcset="{{image}}_350x350.{{imageType}}.webp 1x, {{image}}_450x450.{{imageType}}.webp 2x" media="(max-width: 37.4375em)"/>
+
+        <link rel="preload" as="image" type="image/webp" imagesrcset="{{image}}_600x600.{{imageType}}.webp 1x, {{image}}_800x800.{{imageType}}.webp 2x" media="(min-width: 38em)"/>
+    {% endif %} #}
+
+    <!-- STYLESHEET -->
+    {% include "_partials/styles.njk" %}
+
+    <!-- SITEMAP -->
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml"/>
+
+    <!-- MANIFEST -->
+    <link rel="manifest" href="/site.webmanifest">
+
+    <link rel="alternate" href="{{settings.url}}/" hreflang="en-gb">
+    <link rel="canonical" href="{{settings.url}}{{page.url}}">
+
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            {% if tags and 'product' in tags %}
+                "@type": "Product",
+                "name": "{{ renderData.title or title }}",
+                "image": "{{ product.mainImage }}_800x800.jpg",
+                "description": "{{ renderData.description or product.descriptionSchema }}",
+                "offers": {
+                    "@type": "Offer",
+                    "url": "{{ product.slug }}",
+                    "priceCurrency": "GBP",
+                    "price": "{{ product.priceSchema }}",
+                    "availability": "https://schema.org/InStock"
+                }
+            {% elif post %}
+                "@type": "BlogPosting",
+                "mainEntityOfPage": {
+                    "@type": "WebPage",
+                    "@id": "{{settings.url}}{{page.url}}"
+                },
+                "headline": "{{title}}",
+                "description": "{{description}}",
+                "image": "{{settings.url}}/{{thumbnail}}",
+                "author": {
+                    "@type": "Person",
+                    "name": "{{settings.name}}"
+                },
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "{{settings.name}}",
+                    "logo": {
+                    "@type": "ImageObject",
+                    "url": "{{settings.url}}favicons/favicon-256x256.png",
+                    "width": 256,
+                    "height": 256
+                    }
+                },
+                "datePublished": "{{publish_date | formatDate}}",
+                "dateModified": "{{date | formatDate}}"
+            {% else %}
+                "@type": "Store",
+                "name": "{{ settings.name }}",
+                "url": "{{ settings.url }}/",
+                "image": "{{ settings.url }}/images/favicons/favicon-512x512.png",
+                "foundingDate": "2017",
+                "sameAs": ["{{ settings.url }}",{% for item in settings.social %}
+                        {% if loop.last %}
+                            "{{ item.url }}"
+                        {% else %}
+                            "{{ item.url }}",
+                        {% endif %}
+                    {% endfor %}]
+            {% endif %}
+        }
+    </script>
+
+    <!-- FACEBOOK -->
+    <meta property="og:title" content="{{ renderData.title or title }} &mdash; {{ settings.name }}"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="{{ settings.url }}/"/>
+    <meta property="og:image" content="{{ settings.url }}/images/favicons/favicon-512x512.png"/>
+    <meta property="og:description" content="Stunning range of travel related personalised world map pinboard products for sale. Order online for quick UK delivery.">
+    <meta property="og:locale" content="en_GB">
+    <meta property="article:author" content="{{ settings.name }}">
+    <meta property="og:site_name" content="{{ settings.name }}">
+
+    <!-- TWITTER -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="{{ settings.twitterHandle }}">
+    <meta name="twitter:creator" content="{{ settings.twitterHandle }}">
+    <meta name="twitter:url" content="{{settings.url}}/">
+    <meta name="twitter:title" content="{{ renderData.title or title }} &mdash; {{ settings.name }}">
+    <meta name="twitter:description" content="Stunning range of travel related personalised world map pinboard products for sale. Order online for quick UK delivery.">
+    <meta name="twitter:image" content="{{ settings.url }}/images/favicons/favicon-512x512.png">
+
+    <!-- FAVICONS -->
+    <link rel="icon" type="image/png" href="/favicons/favicon-48x48.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/favicons/favicon-72x72.png" sizes="32x32">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="144x144" href="/favicons/favicon-144x144.png">
+    <link rel="icon" type="image/png" sizes="256x256" href="/favicons/favicon-256x256.png">
+
+    <!-- APPLE ICONS -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Luna">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="/favicons/apple-touch-icon.png">
+    <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#0e0d0d">
+
+    <!-- APPLE SPLASH SCREENS -->
+    <!-- iPhone X (1125px x 2436px) -->
+    <link rel="apple-touch-startup-image" media="(device-width: 375px) and (-webkit-device-pixel-ratio: 3)" href="/images/splash/splash-1125x2436.jpg">
+    <!-- iPhone 8, 7, 6s, 6 (750px x 1334px) -->
+    <link rel="apple-touch-startup-image" media="(device-width: 375px) and (-webkit-device-pixel-ratio: 2)" href="/images/splash/splash-750x1334.jpg">
+    <!-- iPhone 8 Plus, 7 Plus, 6s Plus, 6 Plus (1242px x 2208px) -->
+    <link rel="apple-touch-startup-image" media="(device-width: 414px) and (-webkit-device-pixel-ratio: 3)" href="/images/splash/splash-1242x2208.jpg">
+    <!-- iPhone 5 (640px x 1136px) -->
+    <link rel="apple-touch-startup-image" media="(device-width: 320px) and (-webkit-device-pixel-ratio: 2)" href="/images/splash/splash-640x1136.jpg">
+    <!-- iPad Mini, Air (1536px x 2048px) -->
+    <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)" href="/images/splash/splash-1536x2048.jpg">
+    <!-- iPad Pro 10.5" (1668px x 2224px) -->
+    <link rel="apple-touch-startup-image" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)" href="/images/splash/splash-1668x2224.jpg">
+    <!-- iPad Pro 12.9" (2048px x 2732px) -->
+    <link rel="apple-touch-startup-image" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" href="/images/splash/splash-2048x2732.jpg">
+
+    <!-- MS TILE ICONS -->
+    <meta name="application-name" content="Luna Creates">
+    <meta name="msapplication-TileColor" content="#fff">
+    <meta name="msapplication-square70x70logo" content="/favicons/favicon-70x70.png">
+    <meta name="msapplication-TileImage" content="/favicons/favicon-144x144.png">
+    <meta name="msapplication-square150x150logo" content="/favicons/favicon-150x150.png">
+    <meta name="msapplication-wide310x150logo" content="/favicons/favicon-310x150.png">
+    <meta name="msapplication-square310x310logo" content="/favicons/favicon-310x310.png">
+    <meta name="msapplication-tooltip" content="Luna Creates">
+    <meta name="msapplication-config" content="/browserconfig.xml">
+    <meta name="theme-color" content="#0e0d0d">
+
+    <!-- JAVASCRIPT -->
+    {% include "_partials/scripts.njk" %}
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=ResizeObserver%2CIntersectionObserver%2CString.prototype.includes"></script>
+
+     <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117442723-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-117442723-1');
+    </script>
+
+    <!-- Hotjar Tracking Code for https://lunacreates.co.uk/ -->
+    <script>
+        (function(h,o,t,j,a,r){
+            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+            h._hjSettings={hjid:2047333,hjsv:6};
+            a=o.getElementsByTagName('head')[0];
+            r=o.createElement('script');r.defer=1;
+            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
+
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+
+        (function(){
+            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+            s1.defer=true;
+            s1.src='https://embed.tawk.to/61406d0dd326717cb6815a8d/1ffhqjvvs';
+            s1.charset='UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1,s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
+</head>

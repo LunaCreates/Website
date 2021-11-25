@@ -1,0 +1,59 @@
+---
+title: 'sw'
+permalink: sw.js
+eleventyExcludeFromCollections: true
+---
+
+const CACHE_NAMES = {% swBuildNumber %};
+const CACHE_FILES = [
+  '/',
+  '/faqs/',
+  '/contact-us/',
+  '/about-us/',
+  '/images/logo.svg',
+  '/fonts/avenir-next-variable.woff2',
+  '/icons/sprite.svg',
+  {% swStyles %},
+  {% swScripts %},
+{% for product in products -%}
+  '/products/{{product.slug}}'{% if not loop.last %},{% endif %}
+{% endfor %}
+];
+
+self.addEventListener('install', event => {
+  self.skipWaiting();
+
+  event.waitUntil(caches.open(CACHE_NAMES)
+    .then(cache => cache.addAll(CACHE_FILES))
+  );
+});
+
+// Adding `fetch` event listener
+self.addEventListener('fetch', event => {
+  event.respondWith(caches.match(event.request)
+    .then(response => {
+      // Grab the asset from SW cache.
+      if (response) {
+        return response;
+      }
+
+      return fetch(event.request);
+    })
+    .catch(() => caches.match('/offline/'))
+  );
+});
+
+// Empty out any caches that don’t match the ones listed.
+self.addEventListener('activate', event => {
+  const cacheWhitelist = [CACHE_NAMES];
+
+  event.waitUntil(
+    caches.keys().then(CACHE_NAMES => {
+      return Promise.all(CACHE_NAMES.map(cacheName => {
+        if (cacheWhitelist.indexOf(cacheName) === -1) {
+          return caches.delete(cacheName);
+        }
+      }));
+    })
+  );
+});

@@ -1,0 +1,51 @@
+---
+new_page_extension: md
+auto_deploy: false
+admin_path: src/cms
+webhook_url: 
+sections:
+- type: heading
+  label: Global
+- type: document
+  path: src/site/_data/settings.json
+  label: Site Settings
+- type: document
+  path: src/site/_data/notificationBanner.json
+  label: Notification Banner
+- type: heading
+  label: Posts
+- type: directory
+  path: src/site/blog
+  label: Blog Posts
+  create: documents
+  match: "**/*.md"
+  new_doc_ext: md
+  templates:
+  - blog-post
+- type: heading
+  label: Pages
+- type: directory
+  path: src/site
+  label: Pages
+  create: all
+  match: "**/*.njk"
+  exclude: search.njk, sitemap.njk, sw.njk
+  new_doc_ext: njk
+  templates:
+  - pages
+upload_dir: src/images/blog
+public_path: https://lunacreates.co.uk/images/blog
+front_matter_path: https://lunacreates.co.uk/images/blog
+use_front_matter_path: false
+file_template: ":filename:"
+build:
+  preview_env:
+  - STOREFRONT_API_TOKEN=cfec3febd330e764f5ecf98c6b9a5a44
+  - STOREFRONT_API_URL=https://luna-creates.myshopify.com/api/2020-07/graphql.json
+  - GIT_LFS_SKIP_SMUDGE=1
+  preview_output_directory: dist
+  install_dependencies_command: npm install
+  preview_docker_image: forestryio/node:12
+  mount_path: "/srv"
+  working_dir: "/srv"
+  instant_preview_command: npm run dev

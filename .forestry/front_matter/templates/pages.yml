@@ -1,0 +1,32 @@
+---
+label: Page
+hide_body: true
+fields:
+- name: meta_title
+  type: text
+  config:
+    required: true
+    max: 70
+  label: Meta Title
+  description: Title to be used for SEO purposes
+- name: meta_description
+  type: text
+  config:
+    required: true
+    max: 158
+  label: Meta Description
+  description: The meta description of the page. To be used for SEO purposes
+- name: title
+  type: text
+  config:
+    required: true
+  label: Title
+  description: Title of the page
+- name: content
+  type: blocks
+  label: Content
+  template_types:
+  - hero-banner
+  config:
+    min: 
+    max: 

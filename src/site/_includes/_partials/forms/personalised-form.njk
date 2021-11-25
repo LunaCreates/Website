@@ -1,0 +1,86 @@
+{% set colors = [
+    { hex: '#F8C3D3', name: 'Pink' },
+    { hex: '#84B6F9', name: 'Light Blue' },
+    { hex: '#538B65', name: 'Green' },
+    { hex: '#9D89E6', name: 'Purple' },
+    { hex: '#FFFFFF', name: 'White' },
+    { hex: '#EDD771', name: 'Yellow' },
+    { hex: '#DE3947', name: 'Red' },
+    { hex: '#475A88', name: 'Blue' },
+    { hex: '#ED8733', name: 'Orange' },
+    { hex: '#000000', name: 'Black' }
+] %}
+
+{% if 'Kids' in product.tags %}
+    {% set titleHolder = "E.g. Jack's Adventures" %}
+{% else %}
+    {% set titleHolder = "E.g. Mark & Emma's world travels" %}
+{% endif %}
+
+<form class="mt-24" data-product-form="personalised">
+    <input type="hidden" name="cartId" value="" />
+
+    <div class="relative mb-32">
+        <h2 class="text-sm leading-sm fvs-sb mt-0 mb-16 text-tertiary">1. Choose your map size</h2>
+
+        {% include "_partials/components/map-sizes.njk" %}
+
+        <h2 class="text-sm leading-sm fvs-sb mt-0 mb-16 text-tertiary">2. Choose your frame</h2>
+
+        {% include "_partials/components/map-frames.njk" %}
+
+        {%- for option in product.options -%}
+            {% set sizeField = option.size or option.options %}
+
+            {% if sizeField %}
+                {% set size = sizeField.split(' (')[0] %}
+
+                <input type="text" value="{{ option.id }}" data-size="{{ size | lower }}" data-price="{{ option.price }}" data-frame="{{ option.frame | lower }}" data-name="{{ option.name }}" hidden>
+            {% endif %}
+        {%- endfor -%}
+    </div>
+
+    <div class="p-24 bg-grey-light rounded-4">
+        <h2 class="relative text-md leading-md fvs-md my-0 text-tertiary uppercase">Personalisation</h2>
+
+        <hr class="mt-24 mb-16 -mx-24 border-grey-border">
+
+        <div class="relative mb-32">
+            <label for="map-title" class="text-sm leading-sm fvs-md inline-block mb-8 text-tertiary">
+                Map title
+                <small class="block text-xs leading-xs fvs-md text-grey">Displayed beneath your map</small>
+            </label>
+            <input type="text" name="title" class="text-base leading-base fvs-rg block py-8 px-16 text-grey-neutral w-full border-1 border-solid border-grey-border rounded-4" minlength="3" maxlength="36" placeholder="{{ titleHolder }}" id="map-title" data-product-map-title required>
+        </div>
+
+        <h3 class="text-sm leading-sm fvs-md inline-block mt-0 mb-16 text-tertiary">
+            Choose your free pins
+            <small class="block text-xs leading-xs fvs-md text-grey">Pick up to 6 pin colours (30 pins for each colour included)</small>
+        </h3>
+
+        <div class="relative flex flex-wrap -mt-8 mb-32" data-pin-colors>
+        {% for color in colors %}
+            {% set hex = color.hex %}
+            {% set name = color.name %}
+            {% set id = color.name.replace(' ', '-') + '-pin' %}
+
+            <label for="{{ id | lower }}" class="sr-only">{{ name }}</label>
+            <input type="checkbox" id="{{ id | lower }}" value="{{ hex }}" name="colors" class="peer rounded-full m-8 bg-transparent cursor-pointer appearance-none disabled:opacity-25 disabled:cursor-not-allowed" style="width: 2.5rem; height: 2.5rem; border: 7px solid {{ hex }}; --color: {{ hex }};" data-pin="{{ name | lower }}" data-pin-hex="{{ hex }}">
+        {% endfor %}
+
+            <div class="w-full mt-32 hidden peer-checked:block" data-chosen-pins>
+                <h3 class="text-sm leading-sm fvs-md mt-0 mb-16 text-tertiary">Chosen pins</h3>
+
+                <p class="inline-block mr-8 mb-0 text-grey">Labels:</p>
+
+                <input class="inline-flex justify-center items-center relative m-0" width="20" type="radio" id="map-label-no" name="show key text" value="no">
+                <label class="inline-block mr-16" for="map-label-no">Off</label>
+
+                <input class="inline-flex justify-center items-center relative m-0" width="20" type="radio" id="map-label-yes" name="show key text" value="yes" checked>
+                <label class="inline-block" for="map-label-yes">On</label>
+            </div>
+        </div>
+
+        <button type="submit" class="bg-secondary text-foreground text-xs leading-xs fvs-md py-16 px-24 rounded-5 uppercase tracking-1 outline-transparent focus:outline-primary hov:hover:bg-hover-secondary" data-product-submit>Preview &amp; Add To Basket</button>
+    </div>
+</form>

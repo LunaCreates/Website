@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html class="no-js" lang="en-GB">
+    {% include "_partials/head.njk" %}
+
+    <body>
+        <!-- JAVASCRIPT ALERT -->
+        <noscript>
+            <div>
+                <p>You currently have JavaScript in your browser turned off, so some features of this site may not work fully.</p>
+                <p>Find out <a href="https://enable-javascript.com/" rel="external">how to turn JavaScript on</a>.</p>
+            </div>
+        </noscript>
+
+        <a href="#nav" class="sl p-8 bg-background text-primary top-0 left-0 z-50">Skip to navigation</a>
+        <a href="#main" class="sl p-8 bg-background text-primary top-0 left-0 z-50">Skip to main content</a>
+        <a href="#footer" class="sl p-8 bg-background text-primary top-0 left-0 z-50">Skip to footer</a>
+
+        {% if cart %}
+            <a href="#cart" class="sl p-8 bg-background text-primary top-0 left-0 z-50">Skip to cart</a>
+        {% endif %}
+
+        {% include "_partials/components/notification.njk" %}
+        {% include "_partials/components/header.njk" %}
+
+        {% block content %}
+        {% endblock content %}
+
+        {% include "_partials/components/footer.njk" %}
+
+        {% block foot %}
+        {% endblock %}
+
+        <img src="https://www.facebook.com/tr?id=738956073219143&amp;ev=PageView" height="1" width="1" style="position: absolute; bottom: 0; left: 0" role="presentation" aria-hidden="true" />
+    </body>
+</html>

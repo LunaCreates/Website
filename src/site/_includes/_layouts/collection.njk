@@ -1,0 +1,18 @@
+{% extends "_layouts/default.njk" %}
+
+{% set heroTitle = renderData.heroTitle or heroTitle %}
+{% set heroImage = renderData.heroImage or heroImage %}
+
+{% block content %}
+    {% include "_partials/components/hero.njk" %}
+
+    <main id="main">
+        {% if category.description %}
+            <div class="hero__body container mx-auto my-32 px-16 text-sm leading-sm fvs-rg text-center md:my-56 lg:my-80">
+                {{category.description | safe}}
+            </div>
+        {% endif %}
+
+        {{content | safe}}
+    </main>
+{% endblock %}
